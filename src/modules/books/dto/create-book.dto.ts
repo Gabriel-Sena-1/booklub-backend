@@ -5,7 +5,7 @@ export class CreateBookDto {
   @ApiProperty({ example: 'Clean Code' })
   @IsString()
   @IsNotEmpty()
-  name: string;
+  title: string;
 
   @ApiProperty({ example: 464 })
   @IsNumber()
@@ -13,5 +13,5 @@ export class CreateBookDto {
 
   @ApiProperty({ example: 'Um guia sobre boas práticas de programação.' })
   @IsString()
-  summary: string;
+  description: string;
 }
