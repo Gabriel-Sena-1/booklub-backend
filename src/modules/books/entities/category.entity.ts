@@ -6,7 +6,7 @@ import { Book } from './book.entity';
 export class Category {
   @ApiProperty({ example: 'uuid' })
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @ApiProperty({ example: 'Programming' })
   @Column({ unique: true })

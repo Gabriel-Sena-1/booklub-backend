@@ -14,4 +14,12 @@ export class CreateBookDto {
   @ApiProperty({ example: 'Um guia sobre boas práticas de programação.' })
   @IsString()
   description: string;
+
+  @IsString()
+  @ApiProperty({ example: 'http://example.com/image.jpg' })
+  imageUrl: string;
+
+  @ApiProperty({ example: 4.5 })
+  @IsNumber()
+  averageExternalGrade: number;
 }

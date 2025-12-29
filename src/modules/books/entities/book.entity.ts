@@ -23,6 +23,10 @@ export class Book {
   @Column({ type: 'text' })
   description: string;
 
+  @ApiProperty({ example: 'http://example.com/image.jpg' })
+  @Column({ name: 'image_url' })
+  imageUrl: string;
+
   @ApiProperty({ example: 4.7 })
   @Column({ type: 'float', name: 'average_platform_grade', nullable: true })
   averagePlatformGrade: number;
