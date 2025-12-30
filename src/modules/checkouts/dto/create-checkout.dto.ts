@@ -9,10 +9,6 @@ import {
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateCheckoutDto {
-  @ApiProperty({ description: 'Data do checkout (YYYY-MM-DD).' })
-  @IsDateString()
-  date: string;
-
   @ApiPropertyOptional({
     description: 'Página atual do livro no momento do checkout.',
   })
