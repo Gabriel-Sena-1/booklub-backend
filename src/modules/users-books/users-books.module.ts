@@ -8,5 +8,6 @@ import { UsersBook } from './entities/users-book.entity';
   imports: [TypeOrmModule.forFeature([UsersBook])],
   controllers: [UsersBooksController],
   providers: [UsersBooksService],
+  exports: [UsersBooksService],
 })
 export class UsersBooksModule {}

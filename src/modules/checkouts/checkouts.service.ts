@@ -1,37 +1,38 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Checkout } from './entities/checkout.entity';
 import { CreateCheckoutDto } from './dto/create-checkout.dto';
 import { UpdateCheckoutDto } from './dto/update-checkout.dto';
 import { areTodayDate } from 'src/utils/equalsDate';
+import { UsersBook } from '../users-books/entities/users-book.entity';
+import { UsersBooksService } from '../users-books/users-books.service';
 
 @Injectable()
 export class CheckoutsService {
   constructor(
+    private readonly usersBooksService: UsersBooksService, 
     @InjectRepository(Checkout)
     private readonly checkoutRepository: Repository<Checkout>,
   ) {}
 
-  async validateCheckoutCreation(
+  async validateReadPages(
     createCheckoutDto: CreateCheckoutDto,
-  ): Promise<CheckoutsService> {
-    // TODO: MAKE CHECKOUTS DEFAULT DATE AS CURRENT DATE
-    // TODO: VALIDATE IF A CHECKOUT HAS ALREADY BEEN MADE TODAY FOR THE SAME USERS_BOOKS ID
-    const isToday = (it: { date: string }) => areTodayDate(it.date);
-    if (isToday(createCheckoutDto)) {
-      throw new ConflictException(
-        'A checkout for this book has already been created today.',
-      );
-    }
-
-    return this;
-  }
+  ): Promise<void> {
+    const usersBook = await this.usersBooksService.findOne(createCheckoutDto.usersBooksId);
+    
+    if (usersBook && usersBook.book.pages < createCheckoutDto.currentPage!) {
+      throw new BadRequestException('A página atual não pode ser maior que o número total de páginas do livro.');
+    };
+  };
 
   async create(createCheckoutDto: CreateCheckoutDto): Promise<Checkout> {
-    const checkout = (
-      await this.validateCheckoutCreation(createCheckoutDto)
-    ).checkoutRepository.create(createCheckoutDto);
+    await this.validateReadPages(createCheckoutDto);
+    const today = new Date();
+    const checkout = this.checkoutRepository.create({
+      ...createCheckoutDto, 
+      createdAt: today,
+    });
     return this.checkoutRepository.save(checkout);
   }
 

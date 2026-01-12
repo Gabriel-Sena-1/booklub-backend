@@ -34,10 +34,6 @@ export class Checkout {
   @DeleteDateColumn({ name: 'deleted_at', nullable: true })
   deletedAt?: Date;
 
-  @ApiProperty({ description: 'Data do checkout.' })
-  @Column({ name: 'date', type: 'date' })
-  date: Date;
-
   @ApiProperty({ description: 'URL da foto do checkout.', required: false })
   @Column({ name: 'photo', type: 'varchar', nullable: true })
   photo?: string;
