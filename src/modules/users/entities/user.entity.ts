@@ -7,8 +7,11 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  ManyToMany,
 } from 'typeorm';
 import { UsersBook } from 'src/modules/users-books/entities/users-book.entity';
+import { Club } from 'src/modules/clubs/entities/club.entity';
+import { JoinTable } from 'typeorm';
 
 @Entity('users')
 export class User {
@@ -49,4 +52,8 @@ export class User {
 
   @OneToMany(() => UsersBook, (usersBook) => usersBook.user)
   usersBooks: UsersBook[];
+
+  @ManyToMany(() => Club, (club) => club.users)
+  @JoinTable()
+  clubs: Club[];
 }
