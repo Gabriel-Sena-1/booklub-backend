@@ -27,7 +27,7 @@ export class UsersService {
   }
 
   findAll() {
-    return this.usersRepository.find({ relations: ['usersBooks'] });
+    return this.usersRepository.find({ relations: ['usersBooks', 'clubs'] });
   }
 
   async findAllPaginated(page = 1, limit = 10) {

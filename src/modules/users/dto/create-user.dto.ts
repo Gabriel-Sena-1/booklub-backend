@@ -20,7 +20,8 @@ export class CreateUserDto {
   @IsString()
   photoUrl?: string;
 
-  @IsArray()
   @ApiProperty({ example: ['clubId1', 'clubId2'], required: false })
+  @IsArray()
+  @IsOptional()
   clubs?: string[];
 }
