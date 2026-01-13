@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateUserDto {
   @ApiProperty({ example: 'Gabriel Sena' })
@@ -19,4 +19,9 @@ export class CreateUserDto {
   @IsOptional()
   @IsString()
   photoUrl?: string;
+
+  @ApiProperty({ example: ['clubId1', 'clubId2'], required: false })
+  @IsArray()
+  @IsOptional()
+  clubs?: string[];
 }

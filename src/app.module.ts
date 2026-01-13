@@ -11,6 +11,8 @@ import { UsersBooksModule } from './modules/users-books/users-books.module';
 import { UsersBook } from './modules/users-books/entities/users-book.entity';
 import { Checkout } from './modules/checkouts/entities/checkout.entity';
 import { RootConfiguration } from './environment/app-setup/config';
+import { ClubsModule } from './modules/clubs/clubs.module';
+import { Club } from './modules/clubs/entities/club.entity';
 
 @Module({
   imports: [
@@ -18,8 +20,9 @@ import { RootConfiguration } from './environment/app-setup/config';
     BooksModule,
     UsersBooksModule,
     CheckoutsModule,
+    ClubsModule,
     TypeOrmModule.forRoot(RootConfiguration),
-    TypeOrmModule.forFeature([User, Book, UsersBook, Checkout]),
+    TypeOrmModule.forFeature([User, Book, UsersBook, Checkout, Club]),
   ],
   controllers: [AppController],
   providers: [AppService],
