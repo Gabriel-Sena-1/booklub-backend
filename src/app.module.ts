@@ -13,6 +13,7 @@ import { Checkout } from './modules/checkouts/entities/checkout.entity';
 import { RootConfiguration } from './environment/app-setup/config';
 import { ClubsModule } from './modules/clubs/clubs.module';
 import { Club } from './modules/clubs/entities/club.entity';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { Club } from './modules/clubs/entities/club.entity';
     ClubsModule,
     TypeOrmModule.forRoot(RootConfiguration),
     TypeOrmModule.forFeature([User, Book, UsersBook, Checkout, Club]),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -14,6 +14,7 @@ export const ENV = {
   },
   AppVariables: {
     port: Number(process.env.APP_PORT) || 3000,
-    env: process.env.NODE_ENV || 'development'
+    env: process.env.NODE_ENV || 'development',
+    jwtSecret: process.env.JWT_SECRET
   }
 };
