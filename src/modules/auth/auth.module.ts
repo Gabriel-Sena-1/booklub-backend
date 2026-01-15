@@ -8,6 +8,8 @@ import { ClubsService } from '../clubs/clubs.service';
 import { Club } from '../clubs/entities/club.entity';
 import { ENV } from 'src/environment/variables/env';
 import { JwtModule } from '@nestjs/jwt';
+import { AuthGuard } from './auth.guard';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -19,7 +21,15 @@ import { JwtModule } from '@nestjs/jwt';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, UsersService, ClubsService],
+  providers: [
+    AuthService,
+    UsersService,
+    ClubsService,
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+  ],
   exports: [TypeOrmModule],
 })
 export class AuthModule {}
