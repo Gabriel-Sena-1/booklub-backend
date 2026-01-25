@@ -18,7 +18,7 @@ export class UsersService {
   async create(dto: CreateUserDto) {
     const { clubs: clubIds, password, ...userData } = dto;
     const user = this.usersRepository.create(userData);
-    
+
     if (clubIds) {
       const clubs = await this.clubsService.findMany(clubIds);
       user.clubs = clubs;
@@ -86,5 +86,4 @@ export class UsersService {
   encrypt(password: string): Promise<string> {
     return hash(password, 10);
   }
-
 }
