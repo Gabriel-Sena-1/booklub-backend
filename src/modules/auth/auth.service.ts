@@ -21,9 +21,8 @@ export class AuthService {
   async signIn(email: string, password: string) {
     const user = await this.usersService.findByEmail(email);
 
-    // removivel?
     if (!user) {
-      throw new NotFoundException('User not found');
+      throw new UnauthorizedException('Invalid credentials');
     }
 
     const passwordValid = await compare(password, user.password);
@@ -45,7 +44,7 @@ export class AuthService {
       { expiresIn: '7d' },
     );
 
-    return { accessToken: accessToken, refreshToken: refreshToken };
+    return { accessToken, refreshToken };
   }
 
   async refresh(refreshToken: string) {
@@ -58,17 +57,12 @@ export class AuthService {
       const payload = await this.jwtService.verifyAsync(refreshToken);
 
       if (payload.type !== 'refresh') {
-        throw new UnauthorizedException('Invalid token type');
+        throw new UnauthorizedException('Invalid token');
       }
-      const user = await this.usersService.findOne(payload.sub);
-
-      // faz sentido?
-      if (!user) {
-        throw new NotFoundException('User not found');
-      }
+      const user = (await this.usersService.findOne(payload.sub)) as User;
 
       const generatedTokens = await this.generateTokens(user);
-      // possivel exceção de nenhum token atribuido, evitando exposição do usuario
+
       storedToken.value = generatedTokens.refreshToken;
       return generatedTokens;
     } catch {
