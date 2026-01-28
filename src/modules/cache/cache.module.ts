@@ -1,11 +1,8 @@
 import { Module, Global } from '@nestjs/common';
-import { CacheService } from './cache.service';
-import { CacheController } from './cache.controller';
 import { ENV } from 'src/environment/variables/env';
 import Redis from 'ioredis';
 
 @Module({
-  controllers: [CacheController],
   providers: [
     {
       provide: 'REDIS_CLIENT',
