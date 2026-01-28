@@ -21,6 +21,7 @@ export const ENV = {
   CacheVariables: {
     host: process.env.REDIS_HOST,
     port: Number(process.env.REDIS_PORT),
+    password: process.env.REDIS_PASSWORD,
     redisUrl: process.env.REDIS_URL,
     namespace: process.env.REDIS_NAMESPACE,
     ttl: process.env.REDIS_TTL,

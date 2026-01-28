@@ -14,6 +14,7 @@ import { RootConfiguration } from './environment/app-setup/config';
 import { ClubsModule } from './modules/clubs/clubs.module';
 import { Club } from './modules/clubs/entities/club.entity';
 import { AuthModule } from './modules/auth/auth.module';
+import { CacheModule } from './modules/cache/cache.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { AuthModule } from './modules/auth/auth.module';
     TypeOrmModule.forRoot(RootConfiguration),
     TypeOrmModule.forFeature([User, Book, UsersBook, Checkout, Club]),
     AuthModule,
+    CacheModule,
   ],
   controllers: [AppController],
   providers: [AppService],
