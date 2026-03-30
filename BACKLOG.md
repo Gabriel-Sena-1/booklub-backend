@@ -7,11 +7,11 @@ Este documento serve como backlog colaborativo para a equipe. Marque as tarefas 
 - [ ] Prototipar aplicação frontend
 - [ ] Iniciar frontend do zero, sempre buscando otimizar o tempo
 - [ ] Agrupar e revisar validações
-- [ ] Implementar endpoints paginados em:
-  - [ ] Usuários
+- [X] Implementar endpoints paginados em:
+  - [X] Usuários
   - [ ] Livros
-- [ ] Criar CRUD de clubes
-- [ ] Pesquisar e documentar como implementar autenticação na API
+- [X] Criar CRUD de clubes
+- [X] Pesquisar e documentar como implementar autenticação na API
 - [ ] Criar e configurar logger para a aplicação
 
 ## Como colaborar

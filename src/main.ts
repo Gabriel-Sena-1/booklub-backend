@@ -10,10 +10,22 @@ async function bootstrap() {
     .setTitle('Booklub API')
     .setDescription('API de usuários, livros e progresso de leitura 📚')
     .setVersion('1.0')
-    .addBearerAuth() // 🔒 caso use JWT futuramente
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'Authorization',
+        in: 'header',
+      },
+      'jwt',
+    )
+    .addSecurityRequirements('jwt')
     .build();
 
-  const document = SwaggerModule.createDocument(app, config);
+  const document = SwaggerModule.createDocument(app, config, {
+    deepScanRoutes: true,
+  });
   SwaggerModule.setup('docs', app, document); // acessa em http://localhost:3000/docs
 
   await app.listen(3000);

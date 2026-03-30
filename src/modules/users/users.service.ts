@@ -5,6 +5,7 @@ import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ClubsService } from '../clubs/clubs.service';
+import { hash } from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -15,13 +16,15 @@ export class UsersService {
   ) {}
 
   async create(dto: CreateUserDto) {
-    const { clubs: clubIds, ...userData } = dto;
+    const { clubs: clubIds, password, ...userData } = dto;
     const user = this.usersRepository.create(userData);
 
     if (clubIds) {
       const clubs = await this.clubsService.findMany(clubIds);
       user.clubs = clubs;
     }
+
+    user.password = await this.encrypt(password);
 
     return this.usersRepository.save(user);
   }
@@ -74,5 +77,13 @@ export class UsersService {
   async remove(id: string) {
     await this.usersRepository.delete(id);
     return { deleted: true };
+  }
+
+  findByEmail(email: string) {
+    return this.usersRepository.findOne({ where: { email } });
+  }
+
+  encrypt(password: string): Promise<string> {
+    return hash(password, 10);
   }
 }
